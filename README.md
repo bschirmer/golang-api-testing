@@ -25,11 +25,15 @@ https://github.com/mlabouardy/movies-restapi - I used this to get my head aaroun
 HTTPS instead of HTTP
 
 ## Qustions before submitting
-Do you know what := is?
 why is log.Fatalf("some string %v", err) what is %v?
 What is the arguments on a function, why is it w and r?
 
 
 ## TODO Dev notes
-Figure out what is happening for a data store - maybe just a json file?
-Figure out how to "write" and "read" from datastore
+fix find by id
+- make sure update pet works after find by id works
+then update by id
+then delete by id
+
+need to figure out if database is good to ship
+need to write some post man tests

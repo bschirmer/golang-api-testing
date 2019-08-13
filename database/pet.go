@@ -40,28 +40,28 @@ func UpdatePet(pet Pet) error {
 	return err
 }
 
-func FindPetById(id int) Pet {
-	pet := dao.FindPetById(id)
-	return pet
+func FindPetById(id int) (Pet, error) {
+	pet, err := dao.FindPetById(id)
+	return pet, err
 }
 
-func (m *PetStoreDb) FindPetById(id int) Pet {
+func (m *PetStoreDb) FindPetById(id int) (Pet, error) {
 	collection := db.Database(config.Database).Collection(PetCollection)
 
-	filter := bson.D{{"Id", id}}
+	filter := bson.M{"Id": bson.M{"$eq": id}}
+	//filter := bson.M{"Name": bson.M{"$eq": "pet"}}
 
 	var pet Pet
 	err := collection.FindOne(context.TODO(), filter).Decode(&pet)
-	if err != nil {
-		log.Fatal(err)
-	}
-	return pet
+
+	return pet, err
 }
 
 func FindPetsByStatus(statuses []string) []Pet {
+
 	collection := db.Database(config.Database).Collection(PetCollection)
 
-	filter := bson.M{"Status": bson.M{"$elemMatch": bson.M{"$eq": statuses[0]}}}
+	filter := bson.M{"Status": bson.M{"$in": statuses}}
 
 	// find all documents
 	cursor, err := collection.Find(context.TODO(), filter)
@@ -77,6 +77,7 @@ func FindPetsByStatus(statuses []string) []Pet {
 		if err := cursor.Decode(&pet); err != nil {
 			log.Fatal(err)
 		}
+		log.Print(pet)
 		pets = append(pets, pet)
 	}
 

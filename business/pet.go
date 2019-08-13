@@ -3,11 +3,14 @@ package business
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
+	"strconv"
 
 	. "github.com/bs/a-jumbo-backend-test/database"
 	"github.com/bs/a-jumbo-backend-test/models"
 	"github.com/bs/a-jumbo-backend-test/utils"
+	"github.com/gorilla/mux"
 )
 
 func checkValidPet(pet models.Pet) []string {
@@ -80,7 +83,11 @@ func UpdatePetRoute(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Check is pet exists in db
-	existingPet := FindPetById(pet.Id)
+	existingPet, err := FindPetById(pet.Id)
+	if err != nil {
+		w.Write(utils.ProcessResponse(utils.NotFoundCode, utils.PetNotFound, []string{}))
+		return
+	}
 	if existingPet.Id == 0 {
 		w.Write(utils.ProcessResponse(utils.NotFoundCode, utils.NotFound, []string{utils.PetNotFound}))
 		return
@@ -89,11 +96,11 @@ func UpdatePetRoute(w http.ResponseWriter, r *http.Request) {
 	fmt.Print(existingPet)
 
 	// Save to database
-	updateErr := UpdatePet(pet)
-	if err != nil {
-		w.Write(utils.ProcessResponse(utils.ServerErrorCode, utils.ServerError, []string{updateErr.Error()}))
-		return
-	}
+	// updateErr := UpdatePet(pet)
+	// if err != nil {
+	// 	w.Write(utils.ProcessResponse(utils.ServerErrorCode, utils.ServerError, []string{updateErr.Error()}))
+	// 	return
+	// }
 
 	// return a status ok
 	w.Write(utils.ProcessResponse(utils.StatusOKCode, utils.StatusOK, []string{}))
@@ -104,7 +111,7 @@ func FindPetByStatusRoute(w http.ResponseWriter, r *http.Request) {
 	requestStatuses, _ := vals["Status"]
 
 	if len(requestStatuses) == 0 {
-		w.Write(utils.ProcessResponse(utils.InvalidStatusCode, utils.InvalidStatus, []string{"No status provided"}))
+		w.Write(utils.ProcessResponse(utils.InvalidCode, utils.InvalidStatus, []string{"No status provided"}))
 		return
 	}
 
@@ -116,7 +123,7 @@ func FindPetByStatusRoute(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if len(messages) > 0 {
-		w.Write(utils.ProcessResponse(utils.InvalidStatusCode, utils.InvalidStatus, messages))
+		w.Write(utils.ProcessResponse(utils.InvalidCode, utils.InvalidStatus, messages))
 		return
 	}
 
@@ -132,7 +139,28 @@ func FindPetByStatusRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func FindPetByIdRoute(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, "FindPetById: Not Yet Implemented")
+	vals := mux.Vars(r) // Returns a url.Values, which is a map[string][]string
+	requestId := vals["petId"]
+	if len(requestId) == 0 {
+		w.Write(utils.ProcessResponse(utils.InvalidCode, utils.InvalidId, []string{}))
+		return
+	}
+
+	log.Print(requestId)
+
+	id, err := strconv.Atoi(requestId)
+	pets, err := FindPetById(id)
+	if err != nil {
+		w.Write(utils.ProcessResponse(utils.NotFoundCode, utils.PetNotFound, []string{}))
+		return
+	}
+
+	responseJson, err := json.Marshal(pets)
+	if err != nil {
+		panic(err)
+	}
+
+	w.Write(responseJson)
 }
 
 func UpdatePetByIdRoute(w http.ResponseWriter, r *http.Request) {
@@ -148,5 +176,6 @@ func UploadImageRoute(w http.ResponseWriter, r *http.Request) {
 }
 
 func DatabaseTesting(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprint(w, FindPetById(3))
+	pet, _ := FindPetById(3)
+	fmt.Fprint(w, pet)
 }
