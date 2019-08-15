@@ -1,46 +1,46 @@
 package models
 
 type Pet struct {
-	Id        int      `bson:"Id" json:"Id"`
-	Category  Category `bson:"Category" json:"Category"`
-	Name      string   `bson:"Name" json:"Name"`
-	PhotoUrls []string `bson:"PhotoUrls" json:"PhotoUrls"`
-	Tags      []Tag    `bson:"Tag" json:"Tag"`
-	Status    string   `bson:"Status" json:"Status"`
+	Id        int      `bson:"id" json:"id"`
+	Category  Category `bson:"category" json:"category"`
+	Name      string   `bson:"name" json:"name"`
+	PhotoUrls []string `bson:"photoUrls" json:"photoUrls"`
+	Tags      []Tag    `bson:"tags" json:"tags"`
+	Status    string   `bson:"status" json:"status"`
 }
 
 type Category struct {
-	Id   int    `json:"Id"`
-	Name string `json:"Name"`
+	Id   int    `bson:"id" json:"id"`
+	Name string `bson:"name" json:"name"`
 }
 
 type Tag struct {
-	Id   int    `json:"Id"`
-	Name string `json:"Name"`
+	Id   int    `bson:"id" json:"id"`
+	Name string `bson:"name" json:"name"`
 }
 
 type Order struct {
-	Id       int64  `json:"Id"`
-	PetId    int64  `json:"PetId"`
-	Quantity int32  `json:"Quantity"`
-	ShipDate string `json:"ShipDate"`
-	Status   string `json:"Status"`
-	Complete bool   `json:"Complete"`
+	Id       int64  `bson:"id" json:"id"`
+	PetId    int64  `bson:"petId" json:"petId"`
+	Quantity int32  `bson:"quantity" json:"quantity"`
+	ShipDate string `bson:"shipDate" json:"shipDate"`
+	Status   string `bson:"status" json:"status"`
+	Complete bool   `bson:"complete" json:"complete"`
 }
 
 type User struct {
-	Id         int64  `json:"Id"`
-	UserName   string `json:"UserName"`
-	FirstName  string `json:"FirstName"`
-	LastName   string `json:"LastName"`
-	Email      string `json:"Email"`
-	Password   string `json:"Password"`
-	Phone      string `json:"Phone"`
-	UserStatus int32  `json:"UserStatus"`
+	Id         int64  `bson:"id" json:"id"`
+	UserName   string `bson:"userName" json:"userName"`
+	FirstName  string `bson:"firstName" json:"firstName"`
+	LastName   string `bson:"lastName" json:"lastName"`
+	Email      string `bson:"email" json:"email"`
+	Password   string `bson:"password" json:"password"`
+	Phone      string `bson:"phone" json:"phone"`
+	UserStatus int32  `bson:"userStatus" json:"userStatus"`
 }
 
 type ApiResponse struct {
-	Code    int32  `json:"Code"`
-	Type    string `json:"Type"`
-	Message string `json:"Message"`
+	Code    int32  `bson:"code" json:"code"`
+	Type    string `bson:"type" json:"type"`
+	Message string `bson:"message" json:"message"`
 }

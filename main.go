@@ -32,6 +32,8 @@ func handleRequests() {
 	myRouter.HandleFunc("/pet/{petId}", business.DeletePetByIdRoute).Methods(http.MethodDelete)
 	myRouter.HandleFunc("/pet/{petId}/uploadImage", business.UploadImageRoute).Methods(http.MethodPost)
 
+	myRouter.HandleFunc("/*", business.NoRoute).Methods("*")
+
 	myRouter.HandleFunc("/test", business.DatabaseTesting).Methods(http.MethodPost)
 
 	// Store

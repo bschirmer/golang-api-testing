@@ -30,10 +30,9 @@ What is the arguments on a function, why is it w and r?
 
 
 ## TODO Dev notes
-fix find by id
-- make sure update pet works after find by id works
-then update by id
-then delete by id
+figure out how to catch all other routes
 
 need to figure out if database is good to ship
-need to write some post man tests
+- how this will work
+need to write some post man tests?
+- need to provide something
