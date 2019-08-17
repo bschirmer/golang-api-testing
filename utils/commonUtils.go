@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"github.com/bs/a-jumbo-backend-test/models"
+	"a-jumbo-backend-test/models"
 )
 
 func ProcessBadResponse(code int32, resType string, messages []string) []byte {

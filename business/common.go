@@ -3,7 +3,7 @@ package business
 import (
 	"net/http"
 
-	"github.com/bs/a-jumbo-backend-test/utils"
+	"a-jumbo-backend-test/utils"
 )
 
 func NoRoute(w http.ResponseWriter, r *http.Request) {

@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"strconv"
 
-	. "github.com/bs/a-jumbo-backend-test/config"
-	. "github.com/bs/a-jumbo-backend-test/database"
-	. "github.com/bs/a-jumbo-backend-test/models"
-	"github.com/bs/a-jumbo-backend-test/utils"
+	. "a-jumbo-backend-test/config"
+	. "a-jumbo-backend-test/database"
+	. "a-jumbo-backend-test/models"
+	"a-jumbo-backend-test/utils"
 	"github.com/gorilla/mux"
 )
 
