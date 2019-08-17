@@ -20,9 +20,9 @@ All Models<br>
 All Store and User endpoints
 
 ## How to run
-This is assuming you have GoLang and MongoDB installed. 
-If you need GoLang, this will help; https://golang.org/doc/install
-If you need MongoDB, this will help; https://treehouse.github.io/installation-guides/mac/mongo-mac.html
+This is assuming you have GoLang and MongoDB installed.<br> 
+If you need GoLang, this will help; https://golang.org/doc/install<br>
+If you need MongoDB, this will help; https://treehouse.github.io/installation-guides/mac/mongo-mac.html<br>
 
 1. Git clone this repo into your go workspace. `$GOPATH/src`
 2. Open a terminal (if you didnt use it one to clone) at the repo folder
