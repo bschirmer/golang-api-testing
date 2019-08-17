@@ -47,6 +47,8 @@ The test data includes:
 The test data will allow a Read, Update, Find by status and Delete without any issues.
 This is what the Postman collection covers. If you decide to run that collection, you will end up with 4 pets, but 2 will be updated and 1 will be new and 1 will be deleted. 
 
+PLEASE NOTE: If you run the post man tests more than once, the delete test will fail after the first one, because it worked the first time and the record no longer exists
+
 ## Little tidbits
 This is the first time I have touched GoLang<br>
 Resources used:<br>
