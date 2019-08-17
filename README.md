@@ -23,16 +23,20 @@ https://github.com/mlabouardy/movies-restapi - I used this to get my head aaroun
 
 ## Things I would add if I knew GO better and if I was making this a production application
 HTTPS instead of HTTP
-
-## Qustions before submitting
-why is log.Fatalf("some string %v", err) what is %v?
-What is the arguments on a function, why is it w and r?
+Better error handling
+I would add response codes to the actual response, instead of a 200 every response with a custom error. I thought for this exercise and for testing purposes, this approach would be easier
 
 
 ## TODO Dev notes
-figure out how to catch all other routes
+- uninstall mongo and see what happens
+- push to git
+    - clone git
+    - see who happens
+- write running ops
 
-need to figure out if database is good to ship
-- how this will work
-need to write some post man tests?
-- need to provide something
+- default data
+    - at elast 1 pet
+    - update that pet id
+    - 5 pets, 2 with same status, 1 and 1
+        - this is for find with status
+    - a deleteable pet

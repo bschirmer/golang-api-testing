@@ -6,15 +6,19 @@ import (
 
 	. "github.com/bs/a-jumbo-backend-test/models"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func SavePet(pet Pet) error {
+func SavePet(pet Pet) (primitive.ObjectID, error) {
 	collection := db.Database(config.Database).Collection(PetCollection)
-	_, err := collection.InsertOne(context.TODO(), pet)
+	// Get the next id
+	pet.Id = GetMaxId(PetCollection)
+	insertedResult, err := collection.InsertOne(context.TODO(), pet)
 	if err != nil {
 		log.Fatal(err)
 	}
-	return err
+	insertId, _ := insertedResult.InsertedID.(primitive.ObjectID)
+	return insertId, err
 }
 
 func UpdatePet(pet Pet) error {
@@ -88,4 +92,13 @@ func DeletePetById(id int) error {
 	// we dont care so much about the result, only if it fails
 	_, err := collection.DeleteOne(context.TODO(), filter)
 	return err
+}
+
+func FindId(objectID primitive.ObjectID) Pet {
+	var pet Pet
+	collection := db.Database(config.Database).Collection(PetCollection)
+
+	filter := bson.M{"_id": objectID}
+	_ = collection.FindOne(context.TODO(), filter).Decode(&pet)
+	return pet
 }

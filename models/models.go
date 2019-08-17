@@ -40,7 +40,8 @@ type User struct {
 }
 
 type ApiResponse struct {
-	Code    int32  `bson:"code" json:"code"`
-	Type    string `bson:"type" json:"type"`
-	Message string `bson:"message" json:"message"`
+	Code    int32       `bson:"code" json:"code"`
+	Type    string      `bson:"type" json:"type"`
+	Message string      `bson:"message" json:"message"`
+	Body    interface{} `bson:"body" json:"body"`
 }

@@ -21,8 +21,6 @@ func handleRequests() {
 
 	myRouter.HandleFunc("/", homepage)
 
-	// TODO may want to add what the router can accept
-
 	// Pet
 	myRouter.HandleFunc("/pet", business.CreatePetRoute).Methods(http.MethodPost)
 	myRouter.HandleFunc("/pet", business.UpdatePetRoute).Methods(http.MethodPut) //but how do you pass in params?
@@ -32,9 +30,9 @@ func handleRequests() {
 	myRouter.HandleFunc("/pet/{petId}", business.DeletePetByIdRoute).Methods(http.MethodDelete)
 	myRouter.HandleFunc("/pet/{petId}/uploadImage", business.UploadImageRoute).Methods(http.MethodPost)
 
-	myRouter.HandleFunc("/*", business.NoRoute).Methods("*")
-
 	myRouter.HandleFunc("/test", business.DatabaseTesting).Methods(http.MethodPost)
+
+	myRouter.PathPrefix("/").HandlerFunc(business.NoRoute)
 
 	// Store
 
@@ -49,5 +47,6 @@ func handleRequests() {
 
 func main() {
 	database.Init()
+	database.CreateTestData()
 	handleRequests()
 }

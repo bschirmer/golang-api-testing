@@ -7,7 +7,7 @@ import (
 	"github.com/bs/a-jumbo-backend-test/models"
 )
 
-func ProcessResponse(code int32, resType string, messages []string) []byte {
+func ProcessBadResponse(code int32, resType string, messages []string) []byte {
 	response := new(models.ApiResponse)
 
 	response.Code = code
@@ -17,7 +17,23 @@ func ProcessResponse(code int32, resType string, messages []string) []byte {
 	} else {
 		response.Message = strings.Join(messages, " , ")
 	}
-	//Marshal or convert user object back to json and write to response
+	response.Body = "" // this is because we are using the same struct for GOOD and BAD responses
+	//Marshal or convert object back to json and write to response
+	responseJson, err := json.Marshal(response)
+	if err != nil {
+		panic(err)
+	}
+	return responseJson
+}
+
+func ProcessResponse(code int32, resType string, object interface{}) []byte {
+	response := new(models.ApiResponse)
+
+	response.Code = code
+	response.Type = resType
+	response.Body = object
+
+	//Marshal or convert object back to json and write to response
 	responseJson, err := json.Marshal(response)
 	if err != nil {
 		panic(err)
