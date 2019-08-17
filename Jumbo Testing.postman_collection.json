@@ -1,0 +1,1042 @@
+{
+	"info": {
+		"_postman_id": "386386af-252a-4315-9754-3a299ebf8401",
+		"name": "Jumbo Testing",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Pet: Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: correct pet data\nExpected: 200 OK"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Pet: Invalid Name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid input code 405\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(405);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\");",
+							"    pm.expect(jsonData.message).to.eql(\"Pet name is mandatory\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: No name in body\nExpected: Invaild body error"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Pet: Invalid Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid input code 405\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(405);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\");",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid Status\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"not a good status\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: Invalid status in body\nExpected: Invalid status error"
+			},
+			"response": []
+		},
+		{
+			"name": "Create Pet: Invalid Body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid input code 405\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(405);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\");",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid Body\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: No body\nExpected: Invalid body error"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet: Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 4,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"gato\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"sold\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: Correct Body\nExpected: 200 OK"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet: Invalid Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Input 400\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(400);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\")",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid ID supplied\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					},
+					{
+						"key": "api_key",
+						"type": "text",
+						"value": "special-key"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 0,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"gato\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"sold\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: Body Id = 0\nExpected: Invalid Id error"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet: Pet Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid input code 404\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(404);",
+							"    pm.expect(jsonData.type).to.eql(\"Pet Not Found\");",
+							"    pm.expect(jsonData.message).to.eql(\"\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"id\": 99999999,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"\"\r\n  },\r\n  \"name\": \"gato\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"sold\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet"
+					]
+				},
+				"description": "Testing: Body id doesnt exist\nExpected: Pet not found error"
+			},
+			"response": []
+		},
+		{
+			"name": "Find Pets By Status: Sucessful (single status)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/findByStatus?status=available",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available"
+						}
+					]
+				},
+				"description": "Testing: Correct request status\nExpected: Pets with status of request status"
+			},
+			"response": []
+		},
+		{
+			"name": "Find Pets By Status: Sucessful (multiple statuses)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/findByStatus?status=available&status=sold",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "available"
+						},
+						{
+							"key": "status",
+							"value": "sold"
+						}
+					]
+				},
+				"description": "Testing: multiple correct request statuses\nExpected: multple pets with the passed in statuses"
+			},
+			"response": []
+		},
+		{
+			"name": "Find Pets By Status: Invalid Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Status\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(400);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Status\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/findByStatus?status=somethingelse",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "somethingelse"
+						}
+					]
+				},
+				"description": "Testing incorrect request status"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pet By Id: Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Status\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(400);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Status\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/findByStatus?status=somethingelse",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "somethingelse"
+						}
+					]
+				},
+				"description": "Testing correct request id"
+			},
+			"response": []
+		},
+		{
+			"name": "Get Pet By Id: Pet Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Pet not found 404\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(404);",
+							"    pm.expect(jsonData.type).to.eql(\"Pet Not Found\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/asdas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"asdas"
+					]
+				},
+				"description": "Testing request incorrect id"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet by Id: Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"caro\",\r\n  \"status\": \"sold\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"4"
+					]
+				},
+				"description": "Testing correct id, correct body"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet by Id: Invalid input",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Input 400\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(400);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"caro\",\r\n  \"status\": \"sold\"\r\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/pet/0",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"0"
+					]
+				},
+				"description": "Testing id 0, correct requestbody"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet by Id: Invalid Body",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Body 405\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(405);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\")",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid Body\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/pet/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"1"
+					]
+				},
+				"description": "Testing correct id, no request body"
+			},
+			"response": []
+		},
+		{
+			"name": "Update Pet by Id: Pet not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Invalid Body 405\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(405);",
+							"    pm.expect(jsonData.type).to.eql(\"Invalid Input\")",
+							"    pm.expect(jsonData.message).to.eql(\"Invalid Body\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/pet/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"1"
+					]
+				},
+				"description": "Testing pet id that doesnt exist, correct body"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Pet by Id: Successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Status code is 200 OK\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(200);",
+							"    pm.expect(jsonData.type).to.eql(\"Status OK\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"2"
+					]
+				},
+				"description": "Testing: correct Id, api key supplied\nExpected: 200 OK, empty pet object"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Pet by Id: Missing api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"500 Server Error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(500);",
+							"    pm.expect(jsonData.type).to.eql(\"Server Error\")",
+							"    pm.expect(jsonData.message).to.eql(\"Not Authorised\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Pet by Id: Invalid api key",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"500 Server Error\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(500);",
+							"    pm.expect(jsonData.type).to.eql(\"Server Error\")",
+							"    pm.expect(jsonData.message).to.eql(\"Not Authorised\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Pet by Id: Pet Not Found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "eaab16bc-1773-401b-8c67-09335a573e16",
+						"exec": [
+							"pm.test(\"Pet Not Found 404\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.code).to.eql(404);",
+							"    pm.expect(jsonData.type).to.eql(\"Pet Not Found\")",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "api_key",
+						"value": "special-key",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pet/9999999",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pet",
+						"9999999"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
