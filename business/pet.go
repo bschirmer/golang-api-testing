@@ -7,10 +7,10 @@ import (
 	"net/http"
 	"strconv"
 
-	. "a-jumbo-backend-test/config"
-	. "a-jumbo-backend-test/database"
-	. "a-jumbo-backend-test/models"
-	"a-jumbo-backend-test/utils"
+	. "golang-api-testing/config"
+	. "golang-api-testing/database"
+	. "golang-api-testing/models"
+	"golang-api-testing/utils"
 	"github.com/gorilla/mux"
 )
 

@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"strings"
 
-	"a-jumbo-backend-test/models"
+	"golang-api-testing/models"
 )
 
 func ProcessBadResponse(code int32, resType string, messages []string) []byte {

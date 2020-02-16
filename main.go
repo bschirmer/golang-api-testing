@@ -5,8 +5,8 @@ import (
 	"log"
 	"net/http"
 
-	"a-jumbo-backend-test/business" //How do you make this relative as its internal?
-	"a-jumbo-backend-test/database" //How do you make this relative as its internal?
+	"golang-api-testing/business" //How do you make this relative as its internal?
+	"golang-api-testing/database" //How do you make this relative as its internal?
 	"github.com/gorilla/mux"
 )
 

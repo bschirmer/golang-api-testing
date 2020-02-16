@@ -4,9 +4,9 @@ import (
 	"context"
 	"log"
 
-	. "a-jumbo-backend-test/config" //How do you make this relative as its internal?
+	. "golang-api-testing/config" //How do you make this relative as its internal?
 
-	. "a-jumbo-backend-test/models"
+	. "golang-api-testing/models"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

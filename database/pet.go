@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	. "a-jumbo-backend-test/models"
+	. "golang-api-testing/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
